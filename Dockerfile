@@ -11,7 +11,7 @@ ARG SERVER_DIR=api/server
 
 RUN go mod download
 
-RUN	go build -o ./api-server ./${SERVER_DIR}/server.go
+RUN	go build -o ./api-server .
 
 EXPOSE 8080
 

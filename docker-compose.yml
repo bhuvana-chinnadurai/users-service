@@ -16,13 +16,12 @@ services:
     image: postgres:latest
     restart: always
     container_name: postgres_db_users
+    env_file:
+      - config/test.env
     environment:
-      - POSTGRES_USER=postgres 
-      - POSTGRES_PASSWORD=postgres_password
-      - POSTGRES_DB=users
-      - DATABASE_HOST=postgres
+      - ENV=test
     ports:
-      - '5432:5432'
+      - '${DB_PORT}:${DB_PORT}'
     volumes:
       - database_postgres:/var/lib/postgresql/data
     networks:

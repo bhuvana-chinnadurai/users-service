@@ -4,26 +4,12 @@ package protos;
 
 option go_package="github.com/bhuvana-chinnadurai/users-service";
 
-import "google/protobuf/wrappers.proto";
-/*
+import "google/protobuf/empty.proto";
 
-{
-    "id": "d2a7924e-765f-4949-bc4c-219c956d0f8b",
-    "first_name": "Alice",
-    "last_name": "Bob",
-    "nickname": "AB123",
-    "password": "supersecurepassword",
-    "email": "alice@bob.com",
-    "country": "UK",
-    "created_at": "2019-10-12T07:20:50.52Z",
-    "updated_at":
-
-*/
 message CreateUserRequest{
     string first_name = 1;
     string last_name = 2;
-    //Nickname is optional
-    google.protobuf.StringValue nickname = 3; 
+    string nickname = 3; 
     string password =4;
     string email = 5;
     string country = 6;
@@ -33,6 +19,51 @@ message CreateUserResponse {
     string id = 1;
 }
 
+message UpdateUserRequest{
+  string id =1;
+  string first_name = 2;
+  string last_name = 3;
+  string nickname = 4; 
+  string newPassword = 5;
+  string oldPassword = 6;
+  string email = 7;
+}
+
+message UpdateUserResponse {
+  string id = 1;
+}
+
+message DeleteUserRequest {
+  string id = 1;
+}
+
+message Pagination {
+  int32 Page = 1;
+  int32 Limit = 2;
+}
+message GetAllUsersRequests{
+   Pagination pagination =1;
+   string Country  = 2;
+}
+
+message User {
+  string first_name = 1;
+  string last_name = 2;
+  string nickname = 3; 
+  string email = 5;
+  string country = 6;
+  string createdAt = 7;
+  string updatedAt = 8;
+}
+
+message GetAllUsersResponse{
+  repeated User users = 1;
+}
+
 service Users {
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+  rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty);
+  rpc GetAllUsers(GetAllUsersRequests) returns (GetAllUsersResponse);
 }
+
